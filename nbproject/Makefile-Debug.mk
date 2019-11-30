@@ -62,10 +62,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT}: ${OBJE
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -dynamiclib -install_name libthreadpool.${CND_DLIB_EXT} -fPIC
 
-${OBJECTDIR}/TaskManager.o: TaskManager.c
+${OBJECTDIR}/TaskManager.o: TaskManager.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TaskManager.o TaskManager.c
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TaskManager.o TaskManager.c
 
 # Subprojects
 .build-subprojects:
