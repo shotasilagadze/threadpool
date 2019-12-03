@@ -24,6 +24,8 @@
 extern "C" {
 #endif
 
+enum TASK_MODE { DETACH, WAIT };
+
 typedef struct Task {
 
   //function which should process tasks
@@ -40,11 +42,14 @@ typedef struct Task {
   pthread_mutex_t lock;
   pthread_cond_t cond_var;
 
+  //task mode
+  enum TASK_MODE mode;
+
 } Task;
 
 
 //new task creates task and sets necessary attributes
-Task * NewTask(void *(*routine)(void *), void * params);
+Task * NewTask(void *(*routine)(void *), void * params, enum TASK_MODE mode);
 
 //GetResuls is blocking call until task result is ready to be returned;
 void * GetResult(Task * task);

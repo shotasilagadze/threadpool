@@ -7,11 +7,12 @@
 #include "Task.h"
 
 //new task creates task and sets necessary attributes
-Task * NewTask(void *(*routine)(void *), void * params) {
+Task * NewTask(void *(*routine)(void *), void * params, enum TASK_MODE mode) {
   Task * task = (Task *)malloc(sizeof(Task));
   task->routine = routine;
   task->params = params;
   task->result = NULL;
+  task->mode = mode;
 
   pthread_cond_init(&task->cond_var,NULL);
   pthread_mutex_init(&task->lock,NULL);

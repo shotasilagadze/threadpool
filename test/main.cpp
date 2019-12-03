@@ -24,7 +24,7 @@ void * calculate(void * val) {
 void * bla(void *) {
   int z = 0;
   FOR(k,0,10) {
-    Task * task = NewTask(calculate,&z);
+    Task * task = NewTask(calculate,&z,TASK_MODE::DETACH);
     PushTask(tp,task);
 
   }

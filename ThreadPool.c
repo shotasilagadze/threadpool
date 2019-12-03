@@ -44,7 +44,10 @@ static void * ThreadPoolMainRoutine(void * tp) {
     Task * task = BlockingPop(((ThreadPool *)tp)->stack);
     printf("%s\n","TOOOOOK");
     //process task
-    if (task != NULL) ProcessTask(task); else return NULL;
+    if (task != NULL) {
+      ProcessTask(task);
+      free(task);
+    } else return NULL;
   }
 
   return NULL;
