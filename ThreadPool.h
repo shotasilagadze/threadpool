@@ -19,6 +19,7 @@
 
 #include "TaskManager.h"
 #include <pthread.h>
+#include <stdio.h>
 
 #define FOR(a,b,c) for(int a=b;a<c;a++)
 
@@ -41,21 +42,29 @@ typedef struct ThreadPool {
   //pthreads array
   pthread_t ** threads;
 
+  //safely interrupt
+  pthread_mutex_t protect_interrupt;
+
 } ThreadPool;
 
+
+//Thread Pool start
+void ThreadPoolStart(ThreadPool * tp);
 
 //The function wich creates thread pool
 ThreadPool * ThreadPoolNew(int size);
 
-//The function pushes new task to thread pool to be processed;
-void PushTask(Task * task);
-
 //main thread pool routine which takes tasks from stack and processes
-void * ThreadPoolMainRoutine(void * pt);
+static void * ThreadPoolMainRoutine(void * pt);
 
-//Process processes given task
-static void Process(Task * task);
+//wait until all threads finish execution
+void ThreadPoolJoin(ThreadPool * tp);
 
+//interrupt disposes stack (waking all other threads stuck in pop function)
+void ThreadPoolInterrupt(ThreadPool * tp);
+
+//add new task
+void PushTask(ThreadPool * tp, Task * task);
 
 
 #ifdef __cplusplus

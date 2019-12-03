@@ -15,6 +15,10 @@
 #define TASK_H
 
 #include <stddef.h>
+#include <pthread.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,6 +35,11 @@ typedef struct Task {
   //result will point to returned value
   void * result;
 
+
+  //thread safety parameters
+  pthread_mutex_t lock;
+  pthread_cond_t cond_var;
+
 } Task;
 
 
@@ -41,7 +50,7 @@ Task * NewTask(void *(*routine)(void *), void * params);
 void * GetResult(Task * task);
 
 //process task
-void * ProcessTask(Task * task);
+void ProcessTask(Task * task);
 
 
 #ifdef __cplusplus

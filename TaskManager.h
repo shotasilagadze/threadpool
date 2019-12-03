@@ -19,6 +19,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "Task.h"
 
@@ -61,6 +62,9 @@ extern "C" {
 
   //(unsafe) push just pushes new task into the queue increasing internal stack size if necessary
   API Task * Pop(Stack * stack);
+
+  //push new task
+  API void SafePush(Stack * stack, Task * task);
 
   /*
     blocking pop waits until there is any task in the Stack
