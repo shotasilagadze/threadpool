@@ -32,15 +32,13 @@ void * ThreadPoolMainRoutine(void * tp) {
     //take next task
     Task * task = BlockingPop(((ThreadPool *)tp)->stack);
     //process task
-    if (task != NULL) Process(task); else return NULL;
+    if (task != NULL) GetResult(task); else return NULL;
   }
 
   return NULL;
 }
 
-static void Process(Task * task) {
 
-}
 
 void ThreadPoolInterrupt(ThreadPool * tp) {
   Dispose(tp->stack);

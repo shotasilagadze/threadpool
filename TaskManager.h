@@ -20,16 +20,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "Task.h"
+
 #define API
 #define DEFAULT_STACK_ALLOCATION 4
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-  typedef struct Task {
-
-  } Task;
 
 
   /*
