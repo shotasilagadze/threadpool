@@ -18,7 +18,7 @@
 
 
  //push just pushes new task into the queue increasing internal stack size if necessary
- THREADPOOL_API void SafePush(Stack * stack, void * task)  {
+ THREADPOOL_API void SafePush(Stack * stack, Task * task)  {
 
    //check if stack is destructed lready
    if (stack->disposed) return;
@@ -45,7 +45,7 @@
 
 
  //(unsafe)push just pushes new task into the queue increasing internal stack size if necessary
- void Push(Stack * stack, void * task) {
+ void Push(Stack * stack, Task * task) {
 
    //check if stack is destructed already
    if (stack->disposed) return;
@@ -65,7 +65,7 @@
 
 
  //(unsafe) push just pushes new task into the queue increasing internal stack size if necessary
- void * Pop(Stack * stack)  {
+ Task * Pop(Stack * stack)  {
      if (stack->size == 0) return NULL;
      stack->size--;
      void * task_pt = stack->tasks[stack->size];
@@ -78,7 +78,7 @@
    when new task is added it safely removes and returns new task
    to be processed by thread from thread pool
  */
- void * SafePop(Stack * stack) {
+ Task * SafePop(Stack * stack) {
    //just sleep pop operation until there is any task in the stack
    pthread_mutex_lock(&stack->lock);
    if (stack->size == 0) return NULL;
@@ -96,7 +96,7 @@
    when new task is added it safely removes and returns new task
    to be processed by thread from thread pool
  */
- THREADPOOL_API void * BlockingPop(Stack * stack) {
+ THREADPOOL_API Task * BlockingPop(Stack * stack) {
    //just sleep pop operation until there is any task in the stack
    pthread_mutex_lock(&stack->lock);
    while (true) {

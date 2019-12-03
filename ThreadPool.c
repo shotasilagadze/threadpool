@@ -15,3 +15,8 @@ ThreadPool * ThreadPoolNew(int size) {
 
   return tp;
 }
+
+
+void ThreadPoolStart(ThreadPool * tp) {
+
+}

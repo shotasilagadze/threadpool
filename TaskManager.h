@@ -42,7 +42,7 @@ extern "C" {
     int alloc_length;
 
     //stack task array pointer
-    void ** tasks;
+    Task ** tasks;
 
     //thread safety parameters
     pthread_mutex_t lock;
@@ -59,17 +59,22 @@ extern "C" {
 
 
   //push just pushes new task into the queue increasing internal stack size if necessary
-  void Push(Stack * stack, void * task);
+  void Push(Stack * stack, Task * task);
 
   //(unsafe) push just pushes new task into the queue increasing internal stack size if necessary
-  void * Pop(Stack * stack);
+  Task * Pop(Stack * stack);
 
   /*
     blocking pop waits until there is any task in the Stack
     when new task is added it safely removes and returns new task
     to be processed by thread from thread pool
   */
-  void * BlockingPop(Stack * stack);
+  Task * BlockingPop(Stack * stack);
+
+
+  //disposes stack
+  void Dispose(Stack * stack);
+
 
 
 #ifdef __cplusplus
