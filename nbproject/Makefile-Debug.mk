@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/TaskManager.o
+	${OBJECTDIR}/TaskManager.o \
+	${OBJECTDIR}/ThreadPool.o
 
 
 # C Compiler Flags
@@ -66,6 +67,11 @@ ${OBJECTDIR}/TaskManager.o: TaskManager.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TaskManager.o TaskManager.c
+
+${OBJECTDIR}/ThreadPool.o: ThreadPool.c nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ThreadPool.o ThreadPool.c
 
 # Subprojects
 .build-subprojects:

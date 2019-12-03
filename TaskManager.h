@@ -14,12 +14,23 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 
+
+
 #include <pthread.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
+#define THREADPOOL_API
+#define DEFAULT_STACK_ALLOCATION 4
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+  typedef struct Task {
+
+  } Task;
+
 
   /*
    * main stack structure which will store
@@ -37,11 +48,15 @@ extern "C" {
     pthread_mutex_t lock;
     pthread_cond_t cond_var;
 
+    //boolean to show if stack is disposed
+    bool disposed;
+
   } Stack;
 
 
   //The function wich will be with external linkage to thread pool for stack creation
   Stack * StackNew(int size);
+
 
   //push just pushes new task into the queue increasing internal stack size if necessary
   void Push(Stack * stack, void * task);
