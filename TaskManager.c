@@ -6,7 +6,7 @@
 #include "TaskManager.h"
 
  //The function wich will be with external linkage to thread pool for stack creation
- THREADPOOL_API Stack * StackNew(int size) {
+ Stack * StackNew(int size) {
    Stack * sp = (Stack *)malloc(sizeof(Stack));
    sp->tasks = realloc(sp->tasks,size*sizeof(Task*));
    sp->size = 0;
@@ -18,7 +18,7 @@
 
 
  //push just pushes new task into the queue increasing internal stack size if necessary
- THREADPOOL_API void SafePush(Stack * stack, Task * task)  {
+ void SafePush(Stack * stack, Task * task)  {
 
    //check if stack is destructed lready
    if (stack->disposed) return;
@@ -96,7 +96,7 @@
    when new task is added it safely removes and returns new task
    to be processed by thread from thread pool
  */
- THREADPOOL_API Task * BlockingPop(Stack * stack) {
+ Task * BlockingPop(Stack * stack) {
    //just sleep pop operation until there is any task in the stack
    pthread_mutex_lock(&stack->lock);
    while (true) {
@@ -125,7 +125,7 @@
    when new task is added it safely removes and returns new task
    to be processed by thread from thread pool
  */
- THREADPOOL_API void Dispose(Stack * stack) {
+ void Dispose(Stack * stack) {
    //just sleep pop operation until there is any task in the stack
    pthread_mutex_lock(&stack->lock);
    stack->disposed = true;

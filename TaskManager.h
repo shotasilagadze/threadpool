@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define THREADPOOL_API
+#define API
 #define DEFAULT_STACK_ALLOCATION 4
 
 #ifdef __cplusplus
@@ -55,25 +55,25 @@ extern "C" {
 
 
   //The function wich will be with external linkage to thread pool for stack creation
-  Stack * StackNew(int size);
+  API Stack * StackNew(int size);
 
 
   //push just pushes new task into the queue increasing internal stack size if necessary
-  void Push(Stack * stack, Task * task);
+  API void Push(Stack * stack, Task * task);
 
   //(unsafe) push just pushes new task into the queue increasing internal stack size if necessary
-  Task * Pop(Stack * stack);
+  API Task * Pop(Stack * stack);
 
   /*
     blocking pop waits until there is any task in the Stack
     when new task is added it safely removes and returns new task
     to be processed by thread from thread pool
   */
-  Task * BlockingPop(Stack * stack);
+  API Task * BlockingPop(Stack * stack);
 
 
   //disposes stack
-  void Dispose(Stack * stack);
+  API void Dispose(Stack * stack);
 
 
 

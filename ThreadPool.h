@@ -15,10 +15,13 @@
 #define THREADPOOL_H
 
 
-#define DEFAULT_POOL_SIZE 4
+#define API
 
 #include "TaskManager.h"
-#define STACK_DEFAULT_SIZE 4
+#include <pthread.h>
+
+#define FOR(a,b,c) for(int a=b;a<c;a++)
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,6 +35,11 @@ typedef struct ThreadPool {
   //stack task array pointer
   Stack * stack;
 
+  //boolean what shows if thread pool is interrupted
+  bool interrupt_requested;
+
+  //pthreads array
+  pthread_t ** threads;
 
 } ThreadPool;
 
@@ -39,10 +47,14 @@ typedef struct ThreadPool {
 //The function wich creates thread pool
 ThreadPool * ThreadPoolNew(int size);
 
-
-
 //The function pushes new task to thread pool to be processed;
 void PushTask(Task * task);
+
+//main thread pool routine which takes tasks from stack and processes
+void * ThreadPoolMainRoutine(void * pt);
+
+//Process processes given task
+static void Process(Task * task);
 
 
 
