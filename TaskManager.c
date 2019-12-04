@@ -29,7 +29,6 @@
    pthread_mutex_lock(&stack->lock);
    //check if stack is destructed lready
    if (stack->disposed) {
-     printf("%s\n","AAAAAAAAAA");
      pthread_mutex_unlock(&stack->lock);
      return;
    }

@@ -32,7 +32,7 @@ void * GetResult(Task * task) {
 }
 
 
-//GetResuls is blocking call until task result is ready to be returned;
+//processes task with given routine and parameters
 void ProcessTask(Task * task) {
 
   void * res = task->routine(task->params);
