@@ -14,17 +14,19 @@
 #ifndef TASK_H
 #define TASK_H
 
-#include <stddef.h>
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-enum TASK_MODE { DETACH, WAIT };
+enum TASK_MODE { DETACH, WAIT } ;
+
 
 typedef struct Task {
 
@@ -44,6 +46,9 @@ typedef struct Task {
 
   //task mode
   enum TASK_MODE mode;
+
+  //task priority used if priority queue is internal data structure
+  int priority;
 
 } Task;
 

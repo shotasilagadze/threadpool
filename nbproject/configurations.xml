@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>PriorityQueue.h</itemPath>
       <itemPath>Task.h</itemPath>
       <itemPath>TaskManager.h</itemPath>
       <itemPath>ThreadPool.h</itemPath>
@@ -15,6 +16,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>PriorityQueue.c</itemPath>
+      <itemPath>Stack.c</itemPath>
+      <itemPath>Stack.h</itemPath>
       <itemPath>Task.c</itemPath>
       <itemPath>TaskManager.c</itemPath>
       <itemPath>ThreadPool.c</itemPath>
@@ -42,6 +46,7 @@
       <compileType>
         <cTool>
           <standard>10</standard>
+          <commandLine>-lpthread</commandLine>
         </cTool>
         <ccTool>
           <standard>8</standard>
@@ -49,6 +54,14 @@
           <warningLevel>3</warningLevel>
         </ccTool>
       </compileType>
+      <item path="PriorityQueue.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="PriorityQueue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Stack.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Stack.h" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="Task.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Task.h" ex="false" tool="3" flavor2="0">
@@ -82,6 +95,14 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="PriorityQueue.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="PriorityQueue.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Stack.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Stack.h" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="Task.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Task.h" ex="false" tool="3" flavor2="0">

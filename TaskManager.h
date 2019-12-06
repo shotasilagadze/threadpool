@@ -16,41 +16,45 @@
 
 
 
-#include <pthread.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdio.h>
+#include <errno.h>
+#include <time.h>
 
 #include "Task.h"
 
 #define API
 #define DEFAULT_STACK_ALLOCATION 4
+#define TASK_WAIT_TIME 2
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+  struct TaskManager {
 
-  /*
-   * main stack structure which will store
-   * tasks to be processed by thread pool
-   */
-  typedef struct Stack {
-    //measure stack parameters
-    int size;
-    int alloc_length;
+    //stack data structure for non-prioritized tasks
+    Stack * stack;
 
-    //stack task array pointer
-    Task ** tasks;
+    //priority queue structure for task priorities
+    heap_t * heap;
 
-    //thread safety parameters
+
+    //safely conduct push pop operations
     pthread_mutex_t lock;
+
+    //waiting for new push task
     pthread_cond_t cond_var;
+  }
 
-    //boolean to show if stack is disposed
-    bool disposed;
 
-  } Stack;
+  struct pthread_condattr
+  {
+    /* Combination of values:
+       Bit 0                : flag whether conditional variable will be
+                              sharable between processes.
+       Bit 1-COND_CLOCK_BITS: Clock ID.  COND_CLOCK_BITS is the number of bits
+                              needed to represent the ID of the clock.  */
+    int value;
+  };
 
 
   //The function wich will be with external linkage to thread pool for stack creation
@@ -76,6 +80,12 @@ extern "C" {
 
   //disposes stack
   API void Dispose(Stack * stack);
+
+  //update wait_to
+  void UpdateWaitTime(Stack * stack);
+
+
+  int TPpthread_condattr_setclock (pthread_condattr_t *attr, clockid_t clock_id);
 
 
 

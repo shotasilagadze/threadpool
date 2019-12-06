@@ -7,7 +7,9 @@
 
 ThreadPool * tp;
 
-void intHandler(int dummy) {  ThreadPoolInterrupt(tp); return; }
+void intHandler(int dummy) {
+printf("interrupter = %d\n", pthread_self());
+  ThreadPoolInterrupt(tp); return; }
 
 void * calculate(void * val) {
 
@@ -37,12 +39,14 @@ int main() {
    signal(SIGINT, intHandler);
 
    //create and start thread pool
-   tp = ThreadPoolNew(2);
+   tp = ThreadPoolNew(4);
    ThreadPoolStart(tp);
 
    //create task feeding thread
    pthread_t thread;
    pthread_create(&thread,NULL,bla,NULL);
    ThreadPoolJoin(tp);
+   ThreadPoolDispose(tp);
+
    return 0;
 }

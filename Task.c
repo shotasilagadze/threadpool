@@ -13,6 +13,7 @@ Task * NewTask(void *(*routine)(void *), void * params, enum TASK_MODE mode) {
   task->params = params;
   task->result = NULL;
   task->mode = mode;
+  task->priority = 0;
 
   pthread_cond_init(&task->cond_var,NULL);
   pthread_mutex_init(&task->lock,NULL);

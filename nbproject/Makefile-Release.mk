@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/PriorityQueue.o \
+	${OBJECTDIR}/Stack.o \
+	${OBJECTDIR}/Stack.o \
 	${OBJECTDIR}/Task.o \
 	${OBJECTDIR}/TaskManager.o \
 	${OBJECTDIR}/ThreadPool.o
@@ -63,6 +66,21 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -dynamiclib -install_name libthreadpool.${CND_DLIB_EXT} -fPIC
+
+${OBJECTDIR}/PriorityQueue.o: PriorityQueue.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PriorityQueue.o PriorityQueue.c
+
+${OBJECTDIR}/Stack.o: Stack.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stack.o Stack.c
+
+${OBJECTDIR}/Stack.o: Stack.h
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stack.o Stack.h
 
 ${OBJECTDIR}/Task.o: Task.c
 	${MKDIR} -p ${OBJECTDIR}

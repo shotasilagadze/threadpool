@@ -18,8 +18,6 @@
 #define API
 
 #include "TaskManager.h"
-#include <pthread.h>
-#include <stdio.h>
 
 #define FOR(a,b,c) for(int a=b;a<c;a++)
 
@@ -30,20 +28,12 @@ extern "C" {
 
 
 typedef struct ThreadPool {
-  //measure stack parameters
-  int size;
 
-  //stack task array pointer
-  Stack * stack;
+  //each thread has one and only task manager
+  TaskManager * task_manager;
 
   //boolean what shows if thread pool is interrupted
   bool interrupt_requested;
-
-  //pthreads array
-  pthread_t ** threads;
-
-  //safely interrupt
-  pthread_mutex_t protect_interrupt;
 
 } ThreadPool;
 
@@ -66,6 +56,8 @@ void ThreadPoolInterrupt(ThreadPool * tp);
 //add new task
 void PushTask(ThreadPool * tp, Task * task);
 
+//clears all internal data structures
+void ThreadPoolDispose(ThreadPool * tp);
 
 #ifdef __cplusplus
 }
