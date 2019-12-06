@@ -49,3 +49,8 @@ char *pop (heap_t *h) {
     }
     return data;
 }
+
+
+void FreeHeap(heap_t * heap) {
+  if (heap->nodes != NULL) free(heap->nodes);
+}

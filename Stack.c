@@ -41,3 +41,7 @@ Task * StackPop(Stack * stack) {
 
   return task_pt;
 }
+
+void FreeStack(Stack * stack) {
+  if (stack->tasks != NULL) free(stack->tasks);
+}

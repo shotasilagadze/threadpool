@@ -17,6 +17,7 @@
 
    //initialize heap
    task_manager->heap = (heap_t *)calloc(1, sizeof (heap_t));
+   task_manager->heap->nodes = NULL;
 
 
    //initialize conditional variable
@@ -135,25 +136,30 @@
    when new task is added it safely removes and returns new task
    to be processed by thread from thread pool
  */
- void Dispose(Stack * stack) {
-   printf("%s\n","Stack Interrupt requested");
+ void Dispose(TaskManager * task_manager) {
 
    //just sleep pop operation until there is any task in the stack
-   pthread_mutex_lock(&stack->lock);
-   if (stack->disposed == true) return;
-   stack->disposed = true;
+   pthread_mutex_lock(&task_manager->lock);
 
-
-   //take all remaining tasks from stack and free
-   while (true) {
-     Task * task = Pop(stack);
-     if (task == NULL) break;
+   FOR(k,0,task_manager->stack->size) {
+     Task * task = StackPop(task_manager->stack);
      if (task->mode == DETACH) free(task);
    }
 
+   FOR(k,0,task_manager->heap->size) {
+     Task * task = (Task *)pop(task_manager->heap);
+     if (task->mode == DETACH) free(task);
+   }
 
    pthread_mutex_unlock(&stack->lock);
-   free(stack->tasks);
+
+   //free internal stack data structure
+   FreeStack(task_manager->stack);
+   free(task_manager->stack);
+
+   //free internal heap data strcuture
+   FreeHeap(task_manager->heap);
+   free(task_manager->heap);
 
    return;
  }

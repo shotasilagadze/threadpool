@@ -51,6 +51,9 @@ Task * StackPop(Stack * stack);
 //assigns default parameters
 void InitializeStack(Stack *stack);
 
+//free stack data structure
+void FreeStack(Stack * stack);
+
 #ifdef __cplusplus
 }
 #endif

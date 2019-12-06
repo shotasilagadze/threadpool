@@ -45,6 +45,10 @@ void push (heap_t *h, int priority, char *data);
 char *pop (heap_t *h);
 
 
+//free heap
+void FreeHeap(heap_t * heap);
+
+
 
 #ifdef __cplusplus
 }
