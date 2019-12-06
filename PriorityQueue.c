@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-#incldue "PriorityQueue.h"
+#include "PriorityQueue.h"
 
 void push (heap_t *h, int priority, char *data) {
     if (h->len + 1 >= h->size) {

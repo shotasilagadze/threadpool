@@ -28,7 +28,6 @@ void ThreadPoolStart(ThreadPool * tp) {
 
 //add new task to thread pool
 void PushTask(ThreadPool * tp, Task * task) {
-
   SafePush(tp->stack, tp->heap, task);
   return;
 }
@@ -53,7 +52,6 @@ static void * ThreadPoolMainRoutine(void * tp) {
 
 
 void ThreadPoolJoin(ThreadPool * tp) {
-
   FOR(k,0,tp->size) pthread_join(*(tp->threads[k]),NULL);
   return;
 }
@@ -67,11 +65,6 @@ void ThreadPoolInterrupt(ThreadPool * tp) {
 
 //interrupt disposes stack (waking all other threads stuck in pop function)
 void ThreadPoolDispose(ThreadPool * tp) {
-  Dispose(tp->stack);
-  free(tp->stack);
-
-  FOR(k,0,tp->size) free(tp->threads[k]);
-  free(tp->threads);
-  free(tp);
+  Dispose(tp->task_manager);
   return;
 }
