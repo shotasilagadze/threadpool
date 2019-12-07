@@ -35,6 +35,12 @@ typedef struct ThreadPool {
   //boolean what shows if thread pool is interrupted
   bool interrupt_requested;
 
+  //number of threads for pool
+  int size;
+
+  //threads array pointer
+  pthread_t ** threads;
+
 } ThreadPool;
 
 

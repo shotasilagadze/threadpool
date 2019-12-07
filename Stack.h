@@ -14,6 +14,10 @@
 #ifndef STACK_H
 #define STACK_H
 
+#include "Task.h"
+
+#define DEFAULT_STACK_ALLOCATION 4
+
 #ifdef __cplusplus
 extern "C" {
 #endif

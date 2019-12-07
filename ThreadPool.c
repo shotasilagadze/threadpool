@@ -9,7 +9,10 @@
 
 //initializes thread pool with default thread number 4
 ThreadPool * ThreadPoolNew(int size) {
+
   ThreadPool * tp = (ThreadPool *)malloc(sizeof(ThreadPool));
+  tp->size = size;
+  tp->threads = malloc(size*sizeof(pthread_t*));
   tp->interrupt_requested = false;
   tp->task_manager = NewTaskManager();
 
@@ -28,7 +31,7 @@ void ThreadPoolStart(ThreadPool * tp) {
 
 //add new task to thread pool
 void PushTask(ThreadPool * tp, Task * task) {
-  SafePush(tp->stack, tp->heap, task);
+  SafePush(tp->task_manager, task);
   return;
 }
 
@@ -66,5 +69,7 @@ void ThreadPoolInterrupt(ThreadPool * tp) {
 //interrupt disposes stack (waking all other threads stuck in pop function)
 void ThreadPoolDispose(ThreadPool * tp) {
   Dispose(tp->task_manager);
+  FOR(k,0,tp->size) free(tp->threads[k]);
+  free(tp->threads);
   return;
 }

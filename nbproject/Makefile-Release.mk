@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/PriorityQueue.o \
 	${OBJECTDIR}/Stack.o \
-	${OBJECTDIR}/Stack.o \
 	${OBJECTDIR}/Task.o \
 	${OBJECTDIR}/TaskManager.o \
 	${OBJECTDIR}/ThreadPool.o
@@ -70,32 +69,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT}: ${OBJE
 ${OBJECTDIR}/PriorityQueue.o: PriorityQueue.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PriorityQueue.o PriorityQueue.c
+	$(COMPILE.c) -O2 -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PriorityQueue.o PriorityQueue.c
 
 ${OBJECTDIR}/Stack.o: Stack.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stack.o Stack.c
+	$(COMPILE.c) -O2 -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stack.o Stack.c
 
-${OBJECTDIR}/Stack.o: Stack.h
+${OBJECTDIR}/Stack.h.gch: Stack.h
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stack.o Stack.h
+	$(COMPILE.c) -O2 -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o "$@" Stack.h
 
 ${OBJECTDIR}/Task.o: Task.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Task.o Task.c
+	$(COMPILE.c) -O2 -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Task.o Task.c
 
 ${OBJECTDIR}/TaskManager.o: TaskManager.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TaskManager.o TaskManager.c
+	$(COMPILE.c) -O2 -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TaskManager.o TaskManager.c
 
 ${OBJECTDIR}/ThreadPool.o: ThreadPool.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ThreadPool.o ThreadPool.c
+	$(COMPILE.c) -O2 -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ThreadPool.o ThreadPool.c
 
 # Subprojects
 .build-subprojects:

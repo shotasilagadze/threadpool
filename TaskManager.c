@@ -30,7 +30,7 @@
    //initialize mutex for save data retrieval
    pthread_mutex_init(&task_manager->lock,NULL);
 
-   return TaskManager;
+   return task_manager;
  }
 
 
@@ -40,17 +40,16 @@
  //push just pushes new task into the queue increasing internal stack size if necessary
  void SafePush(TaskManager * task_manager, Task * task)  {
 
-
    //make sure to push new task safely
-   pthread_mutex_lock(&stack->lock);
+   pthread_mutex_lock(&task_manager->lock);
 
    //if priority is assigned insert it into heap
    if (task->priority != 0) push(task_manager->heap, task->priority, (void*)task);
     else StackPush(task_manager->stack, task);
 
    //notify waiting thread that there is a new task to be processed
-   pthread_cond_signal(&stack->cond_var);
-   pthread_mutex_unlock(&stack->lock);
+   pthread_cond_signal(&task_manager->cond_var);
+   pthread_mutex_unlock(&task_manager->lock);
 
    return;
  }
@@ -62,54 +61,54 @@
    to be processed by thread from thread pool
  */
  Task * BlockingPop(TaskManager * task_manager) {
-   //just sleep pop operation until there is any task in the stack
 
-   pthread_mutex_lock(task_manager->stack->lock);
+   pthread_mutex_lock(&task_manager->lock);
 
    if (task_manager->heap->size != 0) {
      Task * task = (Task *)pop(task_manager->heap);
-     pthread_mutex_unlock(&stack->lock);
+     pthread_mutex_unlock(&task_manager->lock);
      return task;
    }
 
-   if (stack->size != 0) {
-     Task * task = (Task *)pop(heap);
-     pthread_mutex_unlock(&stack->lock);
+   if (task_manager->stack->size != 0) {
+     Task * task = (Task *)StackPop(task_manager->stack);
+     pthread_mutex_unlock(&task_manager->lock);
      return task;
    }
 
    //cond var state check
-   UpdateWaitTime(stack);
-   pthread_cond_timedwait(&stack->cond_var, &stack->lock, &stack->wait_to);
+   UpdateWaitTime(task_manager);
+   //just sleep pop operation until there is any task in the stack
+   pthread_cond_timedwait(&task_manager->cond_var, &task_manager->lock, &task_manager->wait_to);
 
    //first check priority tasks
-   if (heap->size != 0) {
-     Task * task = (Task *)pop(heap);
-     pthread_mutex_unlock(&stack->lock);
+   if (task_manager->heap->size != 0) {
+     Task * task = (Task *)pop(task_manager->heap);
+     pthread_mutex_unlock(&task_manager->lock);
      return task;
    }
 
    //then check non-priority tasks
-   if (stack->size != 0) {
-     Task * task = (Task *)pop(heap);
-     pthread_mutex_unlock(&stack->lock);
+   if (task_manager->stack->size != 0) {
+     Task * task = (Task *)StackPop(task_manager->stack);
+     pthread_mutex_unlock(&task_manager->lock);
      return task;
    }
 
 
-   pthread_mutex_unlock(&stack->lock);
+   pthread_mutex_unlock(&task_manager->lock);
    //return NULL no task is given
    return NULL;
  }
 
 
- void UpdateWaitTime(Stack * stack){
+ void UpdateWaitTime(TaskManager * task_manager){
    struct timeval    tp;
 
    int rc =  gettimeofday(&tp, NULL);
-   stack->wait_to.tv_sec  = tp.tv_sec;
-   stack->wait_to.tv_nsec = tp.tv_usec * 1000;
-   stack->wait_to.tv_sec += TASK_WAIT_TIME;
+   task_manager->wait_to.tv_sec  = tp.tv_sec;
+   task_manager->wait_to.tv_nsec = tp.tv_usec * 1000;
+   task_manager->wait_to.tv_sec += TASK_WAIT_TIME;
    return;
  }
 
@@ -151,7 +150,7 @@
      if (task->mode == DETACH) free(task);
    }
 
-   pthread_mutex_unlock(&stack->lock);
+   pthread_mutex_unlock(&task_manager->lock);
 
    //free internal stack data structure
    FreeStack(task_manager->stack);
