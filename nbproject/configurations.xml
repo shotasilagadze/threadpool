@@ -44,10 +44,6 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <standard>10</standard>
-          <commandLine>-lpthread</commandLine>
-        </cTool>
         <ccTool>
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
@@ -84,6 +80,7 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
+          <standard>10</standard>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>

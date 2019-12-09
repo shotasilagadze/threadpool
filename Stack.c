@@ -4,14 +4,16 @@
  * and open the template in the editor.
  */
 
+ #include "Stack.h"
+
 
 void InitializeStack(Stack * stack) {
   //allocated memory length (bytes)
-  sp->alloc_length = DEFAULT_STACK_ALLOCATION*sizeof(Task *);
-  sp->tasks = malloc(sp->alloc_length);
+  stack->alloc_length = DEFAULT_STACK_ALLOCATION*sizeof(Task *);
+  stack->tasks = malloc(stack->alloc_length);
 
   //initialy empty stack size
-  sp->size = 0;
+  stack->size = 0;
   return;
 }
 
@@ -43,5 +45,5 @@ Task * StackPop(Stack * stack) {
 }
 
 void FreeStack(Stack * stack) {
-  if (stack->tasks != NULL) free(stack->tasks);
+  free(stack->tasks);
 }

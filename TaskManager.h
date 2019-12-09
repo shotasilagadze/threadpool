@@ -19,7 +19,8 @@
 #include <errno.h>
 #include <time.h>
 
-#include "Task.h"
+#include "Stack.h"
+#include "PriorityQueue.h"
 
 #define API
 #define DEFAULT_STACK_ALLOCATION 4
@@ -29,7 +30,7 @@
 extern "C" {
 #endif
 
-  struct TaskManager {
+  typedef struct TaskManager {
 
     //stack data structure for non-prioritized tasks
     Stack * stack;
@@ -43,7 +44,11 @@ extern "C" {
 
     //waiting for new push task
     pthread_cond_t cond_var;
-  }
+
+    //time to wait cond var to
+    struct timespec wait_to;
+
+  } TaskManager;
 
 
   struct pthread_condattr
@@ -55,6 +60,9 @@ extern "C" {
                               needed to represent the ID of the clock.  */
     int value;
   };
+
+  //creates new task manager
+  TaskManager * NewTaskManager();
 
 
   //The function wich will be with external linkage to thread pool for stack creation
@@ -68,21 +76,21 @@ extern "C" {
   API Task * Pop(Stack * stack);
 
   //push new task
-  API void SafePush(Stack * stack, Task * task);
+  API void SafePush(TaskManager * task_manager, Task * task);
 
   /*
     blocking pop waits until there is any task in the Stack
     when new task is added it safely removes and returns new task
     to be processed by thread from thread pool
   */
-  API Task * BlockingPop(Stack * stack);
+  API Task * BlockingPop(TaskManager * task_manager);
 
 
   //disposes stack
-  API void Dispose(Stack * stack);
+  API void Dispose(TaskManager * stack);
 
   //update wait_to
-  void UpdateWaitTime(Stack * stack);
+  void UpdateWaitTime(TaskManager * stack);
 
 
   int TPpthread_condattr_setclock (pthread_condattr_t *attr, clockid_t clock_id);

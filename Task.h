@@ -21,6 +21,8 @@
 
 #include <stddef.h>
 
+#define FOR(a,b,c) for(int a=b;a<c;a++)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -61,6 +63,8 @@ void * GetResult(Task * task);
 
 //process task
 void ProcessTask(Task * task);
+
+
 
 
 #ifdef __cplusplus
