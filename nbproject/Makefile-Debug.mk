@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Channel.o \
 	${OBJECTDIR}/PriorityQueue.o \
 	${OBJECTDIR}/Stack.o \
 	${OBJECTDIR}/Task.o \
@@ -43,7 +44,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-pthread
 
 # CC Compiler Flags
 CCFLAGS=
@@ -66,35 +67,40 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT}: ${OBJE
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -dynamiclib -install_name libthreadpool.${CND_DLIB_EXT} -fPIC
 
+${OBJECTDIR}/Channel.o: Channel.c nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Channel.o Channel.c
+
 ${OBJECTDIR}/PriorityQueue.o: PriorityQueue.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PriorityQueue.o PriorityQueue.c
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PriorityQueue.o PriorityQueue.c
 
 ${OBJECTDIR}/Stack.o: Stack.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stack.o Stack.c
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stack.o Stack.c
 
 ${OBJECTDIR}/Stack.h.gch: Stack.h nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o "$@" Stack.h
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o "$@" Stack.h
 
 ${OBJECTDIR}/Task.o: Task.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Task.o Task.c
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Task.o Task.c
 
 ${OBJECTDIR}/TaskManager.o: TaskManager.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TaskManager.o TaskManager.c
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TaskManager.o TaskManager.c
 
 ${OBJECTDIR}/ThreadPool.o: ThreadPool.c nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ThreadPool.o ThreadPool.c
+	$(COMPILE.c) -g -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ThreadPool.o ThreadPool.c
 
 # Subprojects
 .build-subprojects:

@@ -35,7 +35,6 @@ void * GetResult(Task * task) {
 
 //processes task with given routine and parameters
 void ProcessTask(Task * task) {
-
   void * res = task->routine(task->params);
   //make sure to push new task safely
   pthread_mutex_lock(&task->lock);

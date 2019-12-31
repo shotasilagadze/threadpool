@@ -91,6 +91,7 @@
    //then check non-priority tasks
    if (task_manager->stack->size != 0) {
      Task * task = (Task *)StackPop(task_manager->stack);
+
      pthread_mutex_unlock(&task_manager->lock);
      return task;
    }
@@ -131,21 +132,27 @@
  }
 
  /*
-   blocking pop waits until there is any task in the Stack
-   when new task is added it safely removes and returns new task
-   to be processed by thread from thread pool
+    Dispose disposes tasks and frees them if necessary
  */
  void Dispose(TaskManager * task_manager) {
 
    //just sleep pop operation until there is any task in the stack
    pthread_mutex_lock(&task_manager->lock);
 
-   FOR(k,0,task_manager->stack->size) {
+   while(task_manager->stack->size > 0 ) {
+
      Task * task = StackPop(task_manager->stack);
-     if (task->mode == DETACH) free(task);
+
+
+     if (task->mode == DETACH) {
+       free(task);
+     }
+
    }
 
-   FOR(k,0,task_manager->heap->size) {
+
+
+   while(task_manager->heap->size>0) {
      Task * task = (Task *)pop(task_manager->heap);
      if (task->mode == DETACH) free(task);
    }

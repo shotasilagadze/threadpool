@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>Channel.h</itemPath>
       <itemPath>PriorityQueue.h</itemPath>
       <itemPath>Task.h</itemPath>
       <itemPath>TaskManager.h</itemPath>
@@ -16,6 +17,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Channel.c</itemPath>
       <itemPath>PriorityQueue.c</itemPath>
       <itemPath>Stack.c</itemPath>
       <itemPath>Stack.h</itemPath>
@@ -44,12 +46,20 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <standard>10</standard>
+          <commandLine>-pthread</commandLine>
+        </cTool>
         <ccTool>
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
           <warningLevel>3</warningLevel>
         </ccTool>
       </compileType>
+      <item path="Channel.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Channel.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="PriorityQueue.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="PriorityQueue.h" ex="false" tool="3" flavor2="0">
@@ -81,9 +91,11 @@
         <cTool>
           <developmentMode>5</developmentMode>
           <standard>10</standard>
+          <commandlineTool>gcc</commandlineTool>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -92,6 +104,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Channel.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Channel.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="PriorityQueue.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="PriorityQueue.h" ex="false" tool="3" flavor2="0">

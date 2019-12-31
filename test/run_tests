@@ -1,0 +1,3 @@
+#!/bin/bash
+gcc -g main.cpp ../PriorityQueue.c ../Stack.c ../Task.c ../TaskManager.c ../ThreadPool.c ../Channel.c -o a.o;
+./a.o

@@ -9,8 +9,8 @@
 
 void InitializeStack(Stack * stack) {
   //allocated memory length (bytes)
-  stack->alloc_length = DEFAULT_STACK_ALLOCATION*sizeof(Task *);
-  stack->tasks = malloc(stack->alloc_length);
+  stack->alloc_length = DEFAULT_STACK_ALLOCATION;
+  stack->tasks = malloc(stack->alloc_length*sizeof(Task *));
 
   //initialy empty stack size
   stack->size = 0;
@@ -18,16 +18,16 @@ void InitializeStack(Stack * stack) {
 }
 
 void StackPush(Stack * stack, Task * task) {
+
   //make stack size twise as big to allocate enough space
   if (stack->alloc_length == stack->size) {
    stack->alloc_length*=2;
-   stack->tasks = realloc(stack->tasks, stack->alloc_length*sizeof(void*));
+   stack->tasks = realloc(stack->tasks, stack->alloc_length*sizeof(Task*));
   }
 
   //push task and increase size
   stack->tasks[stack->size] = task;
   stack->size++;
-
   return;
 }
 

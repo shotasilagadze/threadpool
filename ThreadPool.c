@@ -40,13 +40,16 @@ static void * ThreadPoolMainRoutine(void * tp) {
   //loop while thread not interrupted
   while (!((ThreadPool *)tp)->interrupt_requested) {
     //take next task
-    Task * task = BlockingPop((TaskManager *)((ThreadPool *)tp)->task_manager);
 
+
+    Task * task = BlockingPop((TaskManager *)((ThreadPool *)tp)->task_manager);
     //process task if valid
     if (task != NULL) {
       ProcessTask(task);
       //if task reallocation responsibility is givne free task
-      if (task->mode == DETACH) free(task);
+      if (task->mode == DETACH) {
+        free(task);
+      }
     }
   }
 
@@ -71,5 +74,7 @@ void ThreadPoolDispose(ThreadPool * tp) {
   Dispose(tp->task_manager);
   FOR(k,0,tp->size) free(tp->threads[k]);
   free(tp->threads);
+  free(tp);
+  free(tp->task_manager);
   return;
 }

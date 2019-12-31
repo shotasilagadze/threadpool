@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Channel.o \
 	${OBJECTDIR}/PriorityQueue.o \
 	${OBJECTDIR}/Stack.o \
 	${OBJECTDIR}/Task.o \
@@ -65,6 +66,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthreadpool.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -dynamiclib -install_name libthreadpool.${CND_DLIB_EXT} -fPIC
+
+${OBJECTDIR}/Channel.o: Channel.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -std=c11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Channel.o Channel.c
 
 ${OBJECTDIR}/PriorityQueue.o: PriorityQueue.c
 	${MKDIR} -p ${OBJECTDIR}
